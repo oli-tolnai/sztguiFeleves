@@ -34,14 +34,14 @@ namespace sztguiFeleves.Views
 
 
 
-        //Drag And Drop method
+        // Implementing drag-and-drop functionality for the TextBox
         private void InputFilePathTextBox_PreviewDragOver(object sender, DragEventArgs e)
         {
             // Allow drag-and-drop only if the data contains file paths
             e.Handled = true;
             e.Effects = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
         }
-
+        
         private void InputFilePathTextBox_PreviewDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -71,12 +71,14 @@ namespace sztguiFeleves.Views
                 }
             }
         }
-
+        
+        
         private bool IsSupportedFileType(string fileExtension)
         {
             return Array.Exists(SupportedFileExtensions, ext => ext == fileExtension);
         }
 
+        /// Event handler for the "Browse" button click
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
             // Create and configure the OpenFileDialog
@@ -108,6 +110,9 @@ namespace sztguiFeleves.Views
             }
 
         }
+
+
+
 
 
     }

@@ -3,11 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:sztguiFeleves.Views"
+        xmlns:local="clr-namespace:sztguiFeleves.Helper"
         mc:Ignorable="d"
         MinHeight="600"
         MinWidth="800"
         Title="MainWindow" Height="600" Width="800">
+
+    <Window.Resources>
+        <local:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+    </Window.Resources>
 
 
     <Grid>
@@ -40,6 +44,185 @@
             <Button Content="Browse" Width="70" VerticalAlignment="Center" Click="BrowseButton_Click" Height="30" FontSize="14"/>
         </StackPanel>
 
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="10">
+            <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" >
+                <!-- Video Settings Tab -->
+                <TabItem Header="Video Settings">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <Label Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" Content="Input" HorizontalContentAlignment="Center"/>
+                        <Label Grid.Column="3" Margin="5,0,5,0" VerticalAlignment="Center" Content="Output" HorizontalContentAlignment="Center"/>
+
+                        <!--Video Codec:-->
+                        <Label Grid.Row="1" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center" Content="Video Codec:" />
+                        <Label Grid.Row="1" Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding OriginalVideoCodec}" />
+                        <ComboBox Grid.Row="1" Grid.Column="3" Width="Auto" Margin="5,5,5,5"
+                          ItemsSource="{Binding VideoCodecs}" 
+                          SelectedItem="{Binding SelectedVideoCodec, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <!--Bit Depth:-->
+                        <Label Grid.Row="2" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center" Content="Bit Depth:" />
+                        <Label Grid.Row="2" Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding OriginalPixelFormat}" />
+                        <ComboBox Grid.Row="2" Grid.Column="3" Width="Auto" Margin="5,5,5,5" 
+                          ItemsSource="{Binding PixelFormats}"
+                          SelectedItem="{Binding SelectedPixelFormat, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+
+                        <!--FrameRate:-->
+                        <Label Grid.Row="3" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center" Content="Frame Rate:" />
+                        <Label Grid.Row="3" Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding OriginalFrameRate}"  />
+                        <ComboBox Grid.Row="3" Grid.Column="3" Width="Auto" Margin="5,5,5,5"
+                      ItemsSource="{Binding Framerates}" 
+                      SelectedItem="{Binding SelectedFramerate, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <!--Resolution:-->
+                        <Label Grid.Row="4" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center" Content="Resolution:" />
+                        <Label Grid.Row="4" Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding OriginalResolution}" />
+                        <ComboBox Grid.Row="4" Grid.Column="3" Width="Auto" Margin="5,5,5,5"
+                        ItemsSource="{Binding Resolutions}" 
+                        SelectedItem="{Binding SelectedResolution, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <!--Output Format:-->
+                        <Label Grid.Row="5" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center" Content="Output Format:" />
+                        <Label Grid.Row="5" Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding OriginalOutputFormat}"  />
+                        <ComboBox Grid.Row="5" Grid.Column="3" Width="Auto" Margin="5,5,5,5"
+                          ItemsSource="{Binding OutputFormats}" 
+                          SelectedItem="{Binding SelectedOutputFormat, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <!--Crf slider:-->
+                        <Label Grid.Row="6" Grid.Column="0" Margin="1,10,1,0" VerticalContentAlignment="Center" VerticalAlignment="Top" Content="Quality:" />
+                        <Label Grid.Row="6" Grid.Column="0" Margin="50,10,1,0" VerticalContentAlignment="Center" VerticalAlignment="Top" Content="{Binding CrfValue}" />
+                        <Slider VerticalAlignment="Top" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3"
+                        Width="Auto" Margin="10,14,10,0"
+                        Minimum="0" Maximum="51" Value="{Binding CrfValue, Mode=TwoWay}"
+                        IsSnapToTickEnabled="True" TickFrequency="1" />
+                        <Label Grid.Row="6" Grid.Column="1" VerticalContentAlignment="Center" Content="High Quality" Margin="5,23,94,-23" />
+                        <Label Grid.Row="6" Grid.Column="2" VerticalContentAlignment="Center" Content="Low Quality" Margin="121,23,-22,-23" />
+                    </Grid>
+                </TabItem>
+
+                <!-- Audio Settings Tab -->
+                <TabItem Header="Audio Settings">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="1" Margin="5" VerticalAlignment="Center" Content="Input" HorizontalContentAlignment="Center"/>
+                        <Label Grid.Row="0" Grid.Column="2" Margin="5" VerticalAlignment="Center" Content="Output" HorizontalContentAlignment="Center"/>
+
+                        <!--Audio Codec:-->
+                        <Label Grid.Row="1" Grid.Column="0" Margin="5" VerticalAlignment="Center" Content="Audio Codec:" />
+                        <Label Grid.Row="1" Grid.Column="1" Margin="5" VerticalAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding OriginalAudioCodec}" />
+                        <ComboBox Grid.Row="1" Grid.Column="2" Width="Auto" Margin="5"
+                          ItemsSource="{Binding AudioCodecs}" 
+                          SelectedItem="{Binding SelectedAudioCodec, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <!--Audio Bitrate:-->
+                        <Label Grid.Row="2" Grid.Column="0" Margin="5" VerticalAlignment="Center" Content="Audio Bitrate:" />
+                        <Label Grid.Row="2" Grid.Column="1" Margin="5" VerticalAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding OriginalAudioBitrate}" />
+                        <ComboBox Grid.Row="2" Grid.Column="2" Width="Auto" Margin="5"
+                          ItemsSource="{Binding AudioBitrates}" 
+                          SelectedItem="{Binding SelectedAudioBitrate, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <!--Audio Sample Rate:-->
+                        <Label Grid.Row="3" Grid.Column="0" Margin="5" VerticalAlignment="Center" Content="Audio Sample Rate:" />
+                        <Label Grid.Row="3" Grid.Column="1" Margin="5" VerticalAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding OriginalAudioSampleRate}" />
+                        <ComboBox Grid.Row="3" Grid.Column="2" Width="Auto" Margin="5"
+                          ItemsSource="{Binding AudioSampleRates}" 
+                          SelectedItem="{Binding SelectedAudioSampleRate, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <!--Audio Channels:-->
+                        <Label Grid.Row="4" Grid.Column="0" Margin="5" VerticalAlignment="Center" Content="Mixdown:" />
+                        <Label Grid.Row="4" Grid.Column="1" Margin="5" VerticalAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding OriginalAudioChannels}" />
+                        <ComboBox Grid.Row="4" Grid.Column="2" Width="Auto" Margin="5"
+                          ItemsSource="{Binding AudioChannel}" 
+                          SelectedItem="{Binding SelectedAudioChannel, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
 
     </Grid>
     
