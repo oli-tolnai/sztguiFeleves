@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using sztguiFeleves.Models;
 using Xabe.FFmpeg;
 
@@ -69,6 +70,7 @@ namespace sztguiFeleves.Services
                 throw new InvalidOperationException("An error occurred during the conversion process.", ex);
             }
         }
+
 
         private string GetEnumDescription(Enum value)
         {
