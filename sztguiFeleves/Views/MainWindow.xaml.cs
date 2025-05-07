@@ -201,14 +201,9 @@ namespace sztguiFeleves.Views
                 return false;
             }
 
-            MessageBox.Show("File path is valid!", "Validation Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            //MessageBox.Show("File path is valid!", "Validation Success", MessageBoxButton.OK, MessageBoxImage.Information);
             return true;
         }
-
-
-
-
-
 
 
     }
