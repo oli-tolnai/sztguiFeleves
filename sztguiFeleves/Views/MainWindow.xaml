@@ -247,6 +247,21 @@
         </StackPanel>
 
 
+        <StackPanel Orientation="Horizontal" Margin="40, 10, 10, 50" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
+            <TextBlock Text="Output File Name:" FontSize="16" VerticalAlignment="Center" Margin="0,0,5,0" />
+            <TextBox x:Name="OutputFileNameTextBox"
+             Text="{Binding OutputFileName, UpdateSourceTrigger=PropertyChanged}"
+             VerticalAlignment="Center"
+             Width="300" Height="30"
+             VerticalContentAlignment="Center"
+             FontSize="14"
+             Margin="0,0,5,0" />
+            <TextBlock Text="{Binding ShowOutputFileExtension}" 
+               FontSize="16" 
+               VerticalAlignment="Center" 
+               Margin="5,0,0,0" />
+        </StackPanel>
+
     </Grid>
 
 </Window>

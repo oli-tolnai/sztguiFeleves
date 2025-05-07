@@ -14,6 +14,21 @@ namespace sztguiFeleves.ViewModels
     public class MainWindowViewModel : INotifyPropertyChanged
     {
 
+        private string _outputFileName;
+        public string OutputFileName
+        {
+            get => _outputFileName;
+            set
+            {
+                if (_outputFileName != value)
+                {
+                    _outputFileName = value;
+                    OnPropertyChanged(nameof(OutputFileName));
+                }
+            }
+        }
+
+
         private double _conversionProgress;
         public double ConversionProgress
         {
@@ -70,6 +85,7 @@ namespace sztguiFeleves.ViewModels
                     _filePath = value;
                     OnPropertyChanged(nameof(FilePath));
                     LoadFileMetadata();
+                    UpdateOutputFileName();
                 }
             }
         }
@@ -284,6 +300,17 @@ namespace sztguiFeleves.ViewModels
                 OnPropertyChanged(nameof(SelectedAudioBitrate));
                 OnPropertyChanged(nameof(SelectedAudioSampleRate));
                 OnPropertyChanged(nameof(SelectedAudioChannel));
+            }
+        }
+
+
+
+        private void UpdateOutputFileName()
+        {
+            if (!string.IsNullOrEmpty(FilePath))
+            {
+                string inputFileName = Path.GetFileNameWithoutExtension(FilePath);
+                OutputFileName = $"{inputFileName}_converted";
             }
         }
 

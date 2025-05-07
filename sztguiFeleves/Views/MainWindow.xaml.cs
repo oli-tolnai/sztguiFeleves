@@ -122,8 +122,13 @@ namespace sztguiFeleves.Views
             string filePath = InputFilePathTextBox.Text;
             if (ValidateFilePath(filePath))
             {
-                
                 var viewModel = DataContext as MainWindowViewModel;
+
+                if (viewModel == null)
+                {
+                    MessageBox.Show("ViewModel is not properly initialized.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
                 // Reset progress before starting a new conversion
                 viewModel.ConversionProgress = 0;
@@ -141,12 +146,19 @@ namespace sztguiFeleves.Views
                     AudioSampleRate = viewModel.SelectedAudioSampleRate,
                     AudioChannel = viewModel.SelectedAudioChannel,
 
-                    // OutputFormat is SelectedOutputFormat or if SelectedOutputFormat Pasthrough, then use the file extension of the input file
-                    OutputFormat = viewModel.SelectedOutputFormat == OutputFormat.Passthrough ? (OutputFormat)Enum.Parse(typeof(OutputFormat), Path.GetExtension(filePath).TrimStart('.')) :
-                        viewModel.SelectedOutputFormat
+                    // OutputFormat is SelectedOutputFormat or if SelectedOutputFormat Passthrough, then use the file extension of the input file
+                    OutputFormat = viewModel.SelectedOutputFormat == OutputFormat.Passthrough
+                        ? (OutputFormat)Enum.Parse(typeof(OutputFormat), Path.GetExtension(filePath).TrimStart('.'))
+                        : viewModel.SelectedOutputFormat
                 };
 
-                string outputFilePath = System.IO.Path.ChangeExtension(filePath, preset.OutputFormat.ToString());
+                
+                string outputFolderPath = Path.GetDirectoryName(filePath);
+                string outputFileExtension = viewModel.SelectedOutputFormat == OutputFormat.Passthrough
+                    ? Path.GetExtension(filePath).TrimStart('.')
+                    : viewModel.SelectedOutputFormat.ToString().ToLower();
+
+                string outputFilePath = Path.Combine(outputFolderPath, viewModel.OutputFileName + "." + outputFileExtension);
 
                 var conversionService = new ConversionService();
                 try
