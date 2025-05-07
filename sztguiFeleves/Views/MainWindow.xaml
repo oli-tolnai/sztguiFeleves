@@ -11,6 +11,7 @@
 
     <Window.Resources>
         <local:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+        <local:OutputFormatConverter x:Key="OutputFormatConverter" />
     </Window.Resources>
 
 
@@ -239,7 +240,12 @@
 
         
         
-        
+        <!--StackPanel at the bottom of the window-->
+        <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
+            
+
+
+        </StackPanel>
 
     </Grid>
     

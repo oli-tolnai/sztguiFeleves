@@ -128,8 +128,8 @@ namespace sztguiFeleves.Views
                 // Create a preset (replace with actual combobox selections)
                 var preset = new Preset
                 {
-                    VideoCodec = viewModel.SelectedVideoCodec, 
-                    PixelFormat = viewModel.SelectedPixelFormat, 
+                    VideoCodec = viewModel.SelectedVideoCodec,
+                    PixelFormat = viewModel.SelectedPixelFormat,
                     CRF = viewModel.CrfValue,
                     Framerate = viewModel.SelectedFramerate,
                     Resolution = viewModel.SelectedResolution,
@@ -137,7 +137,10 @@ namespace sztguiFeleves.Views
                     AudioBitrate = viewModel.SelectedAudioBitrate,
                     AudioSampleRate = viewModel.SelectedAudioSampleRate,
                     AudioChannel = viewModel.SelectedAudioChannel,
-                    OutputFormat = viewModel.SelectedOutputFormat
+
+                    // OutputFormat is SelectedOutputFormat or if SelectedOutputFormat Pasthrough, then use the file extension of the input file
+                    OutputFormat = viewModel.SelectedOutputFormat == OutputFormat.Passthrough ? (OutputFormat)Enum.Parse(typeof(OutputFormat), Path.GetExtension(filePath).TrimStart('.')) :
+                        viewModel.SelectedOutputFormat
                 };
 
                 string outputFilePath = System.IO.Path.ChangeExtension(filePath, preset.OutputFormat.ToString());
