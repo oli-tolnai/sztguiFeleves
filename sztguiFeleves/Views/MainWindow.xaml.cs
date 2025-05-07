@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -113,6 +114,45 @@ namespace sztguiFeleves.Views
 
 
 
+        /// Event handler for the "Start" button click
+        private void StartButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Validate the file path before starting the conversion
+            string filePath = InputFilePathTextBox.Text;
+            if (ValidateFilePath(filePath))
+            {
+                // Start the conversion process
+
+            }
+
+
+        }
+
+        /// Method to validate the file path
+        private bool ValidateFilePath(string filePath)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                MessageBox.Show("The file path cannot be empty.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (!File.Exists(filePath))
+            {
+                MessageBox.Show("The specified file does not exist. Please provide a valid file path.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+
+            if (!SupportedFileExtensions.Contains(Path.GetExtension(filePath)))
+            {
+                MessageBox.Show("Invalid file type. Please select a valid file.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            MessageBox.Show("File path is valid!", "Validation Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            return true;
+        }
 
 
     }

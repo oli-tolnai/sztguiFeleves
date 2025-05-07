@@ -9,46 +9,49 @@ namespace sztguiFeleves.Models
 {
     public enum VideoCodec
     {
-        [Description("H.264")]
+        [Description("libx264")]
         H264,
-        [Description("H.265")]
+        [Description("libx265")]
         H265,
-        [Description("MPEG-2")]
+        [Description("mpeg2video")]
         MPEG2,
-        [Description("MPEG-4")]
+        [Description("mpeg4")]
         MPEG4,
-        [Description("AV1")]
+        [Description("libaom-av1")]
         AV1,
+        [Description("copy")]
         Passthrough
     }
 
     public enum PixelFormat
     {
-        [Description("8-bit")]
+        [Description("yuv420p")]
         yuv420p = 8,
-        [Description("10-bit")]
+        [Description("yuv420p10le")]
         yuv420p10le = 10,
-        [Description("12-bit")]
+        [Description("yuv420p12le")]
         yuv420p12le = 12,
+        [Description("copy")]
         Passthrough
     }
 
     public enum Framerate
     {
-        [Description("24 fps")]
+        [Description("24")]
         Fps24,
-        [Description("25 fps")]
+        [Description("25")]
         Fps25,
-        [Description("30 fps")]
+        [Description("30")]
         Fps30,
-        [Description("50 fps")]
+        [Description("50")]
         Fps50,
-        [Description("60 fps")]
+        [Description("60")]
         Fps60,
-        [Description("120 fps")]
+        [Description("120")]
         Fps120,
-        [Description("240 fps")]
+        [Description("240")]
         Fps240,
+        [Description("copy")]
         Passthrough
     }
 
@@ -66,77 +69,91 @@ namespace sztguiFeleves.Models
         R2560x1440,
         [Description("3840x2160")]
         R3840x2160,
+        [Description("copy")]
         Passthrough
     }
 
     public enum AudioCodec
     {
+        [Description("aac")]
         aac,
+        [Description("libmp3lame")]
         mp3,
+        [Description("ac3")]
         ac3,
+        [Description("copy")]
         Passthrough
     }
 
     public enum AudioBitrate
     {
-        [Description("32 kbps")]
+        [Description("32000")]
         kbps32 = 32,
-        [Description("48 kbps")]
+        [Description("48000")]
         kbps48 = 48,
-        [Description("64 kbps")]
+        [Description("64000")]
         kbps64 = 64,
-        [Description("80 kbps")]
+        [Description("80000")]
         kbps80 = 80,
-        [Description("96 kbps")]
+        [Description("96000")]
         kbps96 = 96,
-        [Description("112 kbps")]
+        [Description("112000")]
         kbps112 = 112,
-        [Description("128 kbps")]
+        [Description("128000")]
         kbps128 = 128,
-        [Description("160 kbps")]
+        [Description("160000")]
         kbps160 = 160,
-        [Description("192 kbps")]
+        [Description("192000")]
         kbps192 = 192,
-        [Description("224 kbps")]
+        [Description("224000")]
         kbps224 = 224,
-        [Description("256 kbps")]
+        [Description("256000")]
         kbps256 = 256,
-        [Description("320 kbps")]
+        [Description("320000")]
         kbps320 = 320,
-        [Description("384 kbps")]
+        [Description("384000")]
         kbps384 = 384,
-        [Description("448 kbps")]
+        [Description("448000")]
         kbps448 = 448,
-        [Description("512 kbps")]
+        [Description("512000")]
         kbps512 = 512,
+        [Description("copy")]
         Passthrough
     }
 
     public enum AudioSampleRate
     {
-        [Description("32 kHz")]
+        [Description("32000")]
         Hz32000,
-        [Description("44.1 kHz")]
+        [Description("44100")]
         Hz44100,
-        [Description("48 kHz")]
+        [Description("48000")]
         Hz48000,
-        [Description("96 kHz")]
+        [Description("96000")]
         Hz96000,
+        [Description("copy")]
         Passthrough
     }
 
     public enum OutputFormat
     {
+        [Description("mp4")]
         mp4,
+        [Description("matroska")]
         mkv,
+        [Description("webm")]
         webm,
+        [Description("copy")]
         Passthrough
     }
 
     public enum AudioChannels
     {
+        [Description("1")]
         Mono = 1,
+        [Description("2")]
         Stereo = 2,
+        [Description("copy")]
         Passthrough
     }
 

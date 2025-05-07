@@ -20,7 +20,10 @@ namespace sztguiFeleves.Helper
                     ?.GetCustomAttributes(typeof(DescriptionAttribute), false)
                     .FirstOrDefault() as DescriptionAttribute;
 
-                return description?.Description ?? enumValue.ToString();
+
+                //Disable EnumDesciptionConverter
+                //return description?.Description ?? enumValue.ToString();
+                return enumValue.ToString();
             }
             return value;
         }

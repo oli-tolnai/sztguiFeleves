@@ -82,7 +82,7 @@
                         </ComboBox>
 
                         <!--Bit Depth:-->
-                        <Label Grid.Row="2" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center" Content="Bit Depth:" />
+                        <Label Grid.Row="2" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center" Content="Pixel Format" />
                         <Label Grid.Row="2" Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding OriginalPixelFormat}" />
                         <ComboBox Grid.Row="2" Grid.Column="3" Width="Auto" Margin="5,5,5,5" 
                           ItemsSource="{Binding PixelFormats}"
@@ -233,6 +233,11 @@
             SelectedItem="{Binding SelectedPreset, Mode=TwoWay}"/>
         </StackPanel>
 
+
+        <!--Start Button bottom right-->
+        <Button Content="Start" Width="100" Margin="10" Height="30" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="StartButton_Click"/>
+
+        
 
     </Grid>
     

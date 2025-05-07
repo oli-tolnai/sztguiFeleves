@@ -210,14 +210,7 @@ namespace sztguiFeleves.ViewModels
                     if (videoStream != null)
                     {
                         OriginalVideoCodec = videoStream.Codec;
-
-                        if (videoStream.PixelFormat.Contains("10"))
-                            OriginalPixelFormat = "10 bit";
-                        else if (videoStream.PixelFormat.Contains("12"))
-                            OriginalPixelFormat = "12 bit";
-                        else
-                            OriginalPixelFormat = "8 bit";
-
+                        OriginalPixelFormat = videoStream.PixelFormat;
                         OriginalFrameRate = $"{videoStream.Framerate} fps";
                         OriginalResolution = $"{videoStream.Width}x{videoStream.Height}";
                         OriginalOutputFormat = Path.GetExtension(FilePath)?.TrimStart('.').ToLower();
