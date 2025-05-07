@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using sztguiFeleves.Models;
 
 namespace sztguiFeleves.ViewModels
@@ -20,15 +22,40 @@ namespace sztguiFeleves.ViewModels
                 {
                     _filePath = value;
                     OnPropertyChanged(nameof(FilePath));
+                    LoadFileMetadata();
                 }
             }
         }
+
+        //Video and Audio Metadata from the input file
+        public string OriginalVideoCodec { get; set; }
+        public string OriginalPixelFormat { get; set; }
+        public string OriginalFrameRate { get; set; }
+        public string OriginalResolution { get; set; }
+        public string OriginalOutputFormat { get; set; }
+        public string OriginalAudioCodec { get; set; }
+        public string OriginalAudioBitrate { get; set; }
+        public string OriginalAudioSampleRate { get; set; }
+        public string OriginalAudioChannels { get; set; }
 
 
 
         public BindingList<Preset> Presets { get; set; } // List of presets
         public MainWindowViewModel()
         {
+            // Initialize default values for metadata
+            OriginalVideoCodec = "-";
+            OriginalPixelFormat = "-";
+            OriginalFrameRate = "-";
+            OriginalResolution = "-";
+            OriginalOutputFormat = "-";
+
+            OriginalAudioCodec = "-";
+            OriginalAudioBitrate = "-";
+            OriginalAudioSampleRate = "-";
+            OriginalAudioChannels = "-";
+
+
             this.Presets = new BindingList<Preset>()
             {
                 new Preset("Archive to H.265 1080p",VideoCodec.H265, PixelFormat.yuv420p,18,Framerate.Passthrough, Resolution.R1920x1080,AudioCodec.Passthrough,AudioBitrate.Passthrough,AudioSampleRate.Passthrough, AudioChannels.Passthrough,OutputFormat.mp4, "Basic Archice"),
@@ -71,6 +98,71 @@ namespace sztguiFeleves.ViewModels
                 new Preset("Passthrough Audio H.265 720p",Models.VideoCodec.H265,Models.PixelFormat.yuv420p10le,26,Models.Framerate.Fps30,Models.Resolution.R1280x720,Models.AudioCodec.Passthrough,(AudioBitrate)192,Models.AudioSampleRate.Hz48000,Models.AudioChannels.Stereo,Models.OutputFormat.mkv,"Compress video to H.265 while keeping original audio.")
             };
 
+        }
+
+
+
+
+
+        private async Task LoadFileMetadata()
+        {
+            // Simulate loading metadata from the file
+            if (!string.IsNullOrEmpty(FilePath))
+            {
+                try
+                {
+                    // Initialize FFmpeg (set the path to FFmpeg binaries if needed)
+                    Xabe.FFmpeg.FFmpeg.SetExecutablesPath("C:\\Users\\olito\\Desktop\\6.(4.)félév\\Sztgui\\ffmpeg");
+
+
+                    // Get media info
+                    var mediaInfo = await Xabe.FFmpeg.FFmpeg.GetMediaInfo(FilePath);
+
+                    // Extract metadata
+                    var videoStream = mediaInfo.VideoStreams.FirstOrDefault();
+                    var audioStream = mediaInfo.AudioStreams.FirstOrDefault();
+
+                    if (videoStream != null)
+                    {
+                        OriginalVideoCodec = videoStream.Codec;
+
+                        if (videoStream.PixelFormat.Contains("10"))
+                            OriginalPixelFormat = "10 bit";
+                        else if (videoStream.PixelFormat.Contains("12"))
+                            OriginalPixelFormat = "12 bit";
+                        else
+                            OriginalPixelFormat = "8 bit";
+
+                        OriginalFrameRate = $"{videoStream.Framerate} fps";
+                        OriginalResolution = $"{videoStream.Width}x{videoStream.Height}";
+                        OriginalOutputFormat = Path.GetExtension(FilePath)?.TrimStart('.').ToLower();
+                    }
+
+
+                    if (audioStream != null)
+                    {
+                        OriginalAudioCodec = audioStream.Codec;
+                        OriginalAudioBitrate = $"{audioStream.Bitrate / 1000} kbps";
+                        OriginalAudioSampleRate = $"{audioStream.SampleRate} Hz";
+                        OriginalAudioChannels = audioStream.Channels == 1 ? "Mono" : "Stereo";
+                    }
+
+                    // Notify the UI of property changes
+                    OnPropertyChanged(nameof(OriginalVideoCodec));
+                    OnPropertyChanged(nameof(OriginalPixelFormat));
+                    OnPropertyChanged(nameof(OriginalFrameRate));
+                    OnPropertyChanged(nameof(OriginalResolution));
+                    OnPropertyChanged(nameof(OriginalOutputFormat));
+                    OnPropertyChanged(nameof(OriginalAudioCodec));
+                    OnPropertyChanged(nameof(OriginalAudioBitrate));
+                    OnPropertyChanged(nameof(OriginalAudioSampleRate));
+                    OnPropertyChanged(nameof(OriginalAudioChannels));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to load metadata: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
 
