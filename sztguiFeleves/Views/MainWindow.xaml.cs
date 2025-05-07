@@ -13,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using sztguiFeleves.Models;
+using sztguiFeleves.Services;
 using sztguiFeleves.ViewModels;
 using Path = System.IO.Path;
 
@@ -115,17 +117,42 @@ namespace sztguiFeleves.Views
 
 
         /// Event handler for the "Start" button click
-        private void StartButton_Click(object sender, RoutedEventArgs e)
+        private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            // Validate the file path before starting the conversion
             string filePath = InputFilePathTextBox.Text;
             if (ValidateFilePath(filePath))
             {
-                // Start the conversion process
+                
+                var viewModel = DataContext as MainWindowViewModel;
 
+                // Create a preset (replace with actual combobox selections)
+                var preset = new Preset
+                {
+                    VideoCodec = viewModel.SelectedVideoCodec, 
+                    PixelFormat = viewModel.SelectedPixelFormat, 
+                    CRF = viewModel.CrfValue,
+                    Framerate = viewModel.SelectedFramerate,
+                    Resolution = viewModel.SelectedResolution,
+                    AudioCodec = viewModel.SelectedAudioCodec,
+                    AudioBitrate = viewModel.SelectedAudioBitrate,
+                    AudioSampleRate = viewModel.SelectedAudioSampleRate,
+                    AudioChannel = viewModel.SelectedAudioChannel,
+                    OutputFormat = viewModel.SelectedOutputFormat
+                };
+
+                string outputFilePath = System.IO.Path.ChangeExtension(filePath, preset.OutputFormat.ToString());
+
+                var conversionService = new ConversionService();
+                try
+                {
+                    await conversionService.ConvertFileAsync(filePath, outputFilePath, preset);
+                    MessageBox.Show("Conversion completed successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Conversion failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-
-
         }
 
         /// Method to validate the file path
@@ -153,6 +180,11 @@ namespace sztguiFeleves.Views
             MessageBox.Show("File path is valid!", "Validation Success", MessageBoxButton.OK, MessageBoxImage.Information);
             return true;
         }
+
+
+
+
+
 
 
     }

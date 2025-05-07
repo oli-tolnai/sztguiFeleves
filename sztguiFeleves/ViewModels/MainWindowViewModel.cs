@@ -13,7 +13,6 @@ namespace sztguiFeleves.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-
         private Preset _selectedPreset;
         public Preset SelectedPreset
         {
