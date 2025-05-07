@@ -224,6 +224,16 @@
             </TabControl>
         </Grid>
 
+
+
+        <!--List Box for Presets-->
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="1, 32, 1, 10" Grid.Row="1" Grid.Column="3" Grid.RowSpan="3" >
+            <ListBox FontSize="12" x:Name="PresetListBox" Width="260" DisplayMemberPath="Name"
+             ItemsSource="{Binding Presets}"
+            SelectedItem="{Binding SelectedPreset, Mode=TwoWay}"/>
+        </StackPanel>
+
+
     </Grid>
     
 </Window>
