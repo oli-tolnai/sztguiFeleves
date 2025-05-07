@@ -6,12 +6,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using sztguiFeleves.Helper;
 using sztguiFeleves.Models;
 
 namespace sztguiFeleves.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+
+        private int _crfValue;
+        public int CrfValue
+        {
+            get => _crfValue;
+            set
+            {
+                if (_crfValue != value)
+                {
+                    _crfValue = value;
+                    OnPropertyChanged(nameof(CrfValue));
+                }
+            }
+        }
+
         private string _filePath;
         public string FilePath
         {
@@ -39,6 +55,42 @@ namespace sztguiFeleves.ViewModels
         public string OriginalAudioChannels { get; set; }
 
 
+        // ComboBox values for Video Codec
+        public IEnumerable<VideoCodec> VideoCodecs => EnumHelper.GetValues<VideoCodec>();
+        public VideoCodec SelectedVideoCodec { get; set; }
+        // ComboBox values for Pixel Format
+        public IEnumerable<PixelFormat> PixelFormats => EnumHelper.GetValues<PixelFormat>();
+        public PixelFormat SelectedPixelFormat { get; set; }
+
+        // ComboBox values for Framerate
+        public IEnumerable<Framerate> Framerates => EnumHelper.GetValues<Framerate>();
+        public Framerate SelectedFramerate { get; set; }
+
+        // ComboBox values for Resolution
+        public IEnumerable<Resolution> Resolutions => EnumHelper.GetValues<Resolution>();
+        public Resolution SelectedResolution { get; set; }
+
+        // ComboBox values for Output Format
+        public IEnumerable<OutputFormat> OutputFormats => EnumHelper.GetValues<OutputFormat>();
+        public OutputFormat SelectedOutputFormat { get; set; }
+
+        // ComboBox values for Audio Codec
+        public IEnumerable<AudioCodec> AudioCodecs => EnumHelper.GetValues<AudioCodec>();
+        public AudioCodec SelectedAudioCodec { get; set; }
+
+        // ComboBox values for Audio Bitrate
+        public IEnumerable<AudioBitrate> AudioBitrates => EnumHelper.GetValues<AudioBitrate>();
+        public AudioBitrate SelectedAudioBitrate { get; set; }
+
+        // ComboBox values for Audio Sample Rate
+        public IEnumerable<AudioSampleRate> AudioSampleRates => EnumHelper.GetValues<AudioSampleRate>();
+        public AudioSampleRate SelectedAudioSampleRate { get; set; }
+
+        // ComboBox values for Audio Channels
+        public IEnumerable<AudioChannels> AudioChannel => EnumHelper.GetValues<AudioChannels>();
+        public AudioChannels SelectedAudioChannel { get; set; }
+
+
 
         public BindingList<Preset> Presets { get; set; } // List of presets
         public MainWindowViewModel()
@@ -54,6 +106,22 @@ namespace sztguiFeleves.ViewModels
             OriginalAudioBitrate = "-";
             OriginalAudioSampleRate = "-";
             OriginalAudioChannels = "-";
+
+            // Set default values for ComboBox selections
+            SelectedVideoCodec = VideoCodec.Passthrough;
+            SelectedPixelFormat = PixelFormat.Passthrough;
+            SelectedFramerate = Framerate.Passthrough;
+            SelectedResolution = Resolution.Passthrough;
+            SelectedOutputFormat = OutputFormat.Passthrough;
+
+            CrfValue = 23;
+
+            // Set default values for Audio Codec
+            SelectedAudioCodec = AudioCodec.Passthrough;
+            SelectedAudioBitrate = AudioBitrate.Passthrough;
+            SelectedAudioSampleRate = AudioSampleRate.Passthrough;
+            SelectedAudioChannel = AudioChannels.Passthrough;
+
 
 
             this.Presets = new BindingList<Preset>()
@@ -98,6 +166,9 @@ namespace sztguiFeleves.ViewModels
                 new Preset("Passthrough Audio H.265 720p",Models.VideoCodec.H265,Models.PixelFormat.yuv420p10le,26,Models.Framerate.Fps30,Models.Resolution.R1280x720,Models.AudioCodec.Passthrough,(AudioBitrate)192,Models.AudioSampleRate.Hz48000,Models.AudioChannels.Stereo,Models.OutputFormat.mkv,"Compress video to H.265 while keeping original audio.")
             };
 
+            _filePath = string.Empty; // Initialize _filePath to avoid CS8618
+            PropertyChanged = null; // Initialize PropertyChanged to avoid CS8618
+
         }
 
 
@@ -111,7 +182,8 @@ namespace sztguiFeleves.ViewModels
             {
                 try
                 {
-                    // Initialize FFmpeg (set the path to FFmpeg binaries if needed)
+                    // TODO: Check if the file exists
+                    // Initialize FFmpeg
                     Xabe.FFmpeg.FFmpeg.SetExecutablesPath("C:\\Users\\olito\\Desktop\\6.(4.)félév\\Sztgui\\ffmpeg");
 
 
