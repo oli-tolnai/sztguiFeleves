@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace sztguiFeleves.ViewModels
 {
-    internal class MainWindowViewModel
+    public class MainWindowViewModel
     {
     }
 }

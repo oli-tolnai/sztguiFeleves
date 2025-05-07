@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace sztguiFeleves.Services
 {
-    internal class ConversionService
+    public class ConversionService
     {
     }
 }
