@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sztguiFeleves", "sztguiFeleves\sztguiFeleves.csproj", "{FBAD49BB-B23E-401C-ACF2-7A09A17DAEAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FBAD49BB-B23E-401C-ACF2-7A09A17DAEAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBAD49BB-B23E-401C-ACF2-7A09A17DAEAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBAD49BB-B23E-401C-ACF2-7A09A17DAEAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBAD49BB-B23E-401C-ACF2-7A09A17DAEAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2130AEEB-ECCC-4D30-A36E-F9936BAEC392}
+	EndGlobalSection
+EndGlobal
