@@ -14,6 +14,22 @@ namespace sztguiFeleves.ViewModels
     public class MainWindowViewModel : INotifyPropertyChanged
     {
 
+        private Preset _selectedPreset;
+        public Preset SelectedPreset
+        {
+            get => _selectedPreset;
+            set
+            {
+                if (_selectedPreset != value)
+                {
+                    _selectedPreset = value;
+                    OnPropertyChanged(nameof(SelectedPreset));
+                    UpdateComboBoxValues(); // Update ComboBox values when a preset is selected
+                }
+            }
+        }
+
+
         private int _crfValue;
         public int CrfValue
         {
@@ -172,9 +188,6 @@ namespace sztguiFeleves.ViewModels
         }
 
 
-
-
-
         private async Task LoadFileMetadata()
         {
             // Simulate loading metadata from the file
@@ -234,6 +247,35 @@ namespace sztguiFeleves.ViewModels
                 {
                     MessageBox.Show($"Failed to load metadata: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+            }
+        }
+
+
+        private void UpdateComboBoxValues()
+        {
+            if (SelectedPreset != null)
+            {
+                // Update ComboBox values based on the selected preset
+                SelectedVideoCodec = SelectedPreset.VideoCodec;
+                SelectedPixelFormat = SelectedPreset.PixelFormat;
+                SelectedFramerate = SelectedPreset.Framerate;
+                SelectedResolution = SelectedPreset.Resolution;
+                SelectedOutputFormat = SelectedPreset.OutputFormat;
+                SelectedAudioCodec = SelectedPreset.AudioCodec;
+                SelectedAudioBitrate = SelectedPreset.AudioBitrate;
+                SelectedAudioSampleRate = SelectedPreset.AudioSampleRate;
+                SelectedAudioChannel = SelectedPreset.AudioChannel;
+
+                // Notify the UI of property changes
+                OnPropertyChanged(nameof(SelectedVideoCodec));
+                OnPropertyChanged(nameof(SelectedPixelFormat));
+                OnPropertyChanged(nameof(SelectedFramerate));
+                OnPropertyChanged(nameof(SelectedResolution));
+                OnPropertyChanged(nameof(SelectedOutputFormat));
+                OnPropertyChanged(nameof(SelectedAudioCodec));
+                OnPropertyChanged(nameof(SelectedAudioBitrate));
+                OnPropertyChanged(nameof(SelectedAudioSampleRate));
+                OnPropertyChanged(nameof(SelectedAudioChannel));
             }
         }
 
