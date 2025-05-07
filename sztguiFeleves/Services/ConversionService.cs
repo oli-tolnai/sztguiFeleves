@@ -12,7 +12,7 @@ namespace sztguiFeleves.Services
 {
     public class ConversionService
     {
-        public async Task ConvertFileAsync(string inputFilePath, string outputFilePath, Preset preset)
+        public async Task ConvertFileAsync(string inputFilePath, string outputFilePath, Preset preset, Action<double>? onProgress = null)
         {
             try
             {
@@ -61,6 +61,13 @@ namespace sztguiFeleves.Services
                 // Set output file
                 conversion.SetOutput(outputFilePath);
 
+                // Subscribe to the OnProgress event
+                conversion.OnProgress += (sender, args) =>
+                {
+                    // Call the onProgress action with the progress percentage
+                    onProgress?.Invoke(args.Percent);
+                };
+
                 // Start the conversion
                 await conversion.Start();
             }
@@ -81,5 +88,6 @@ namespace sztguiFeleves.Services
 
             return description?.Description ?? value.ToString();
         }
+
     }
 }

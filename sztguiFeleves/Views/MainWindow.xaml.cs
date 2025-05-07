@@ -125,6 +125,9 @@ namespace sztguiFeleves.Views
                 
                 var viewModel = DataContext as MainWindowViewModel;
 
+                // Reset progress before starting a new conversion
+                viewModel.ConversionProgress = 0;
+
                 // Create a preset (replace with actual combobox selections)
                 var preset = new Preset
                 {
@@ -148,12 +151,18 @@ namespace sztguiFeleves.Views
                 var conversionService = new ConversionService();
                 try
                 {
-                    await conversionService.ConvertFileAsync(filePath, outputFilePath, preset);
+                    await conversionService.ConvertFileAsync(filePath, outputFilePath, preset, progress =>
+                    {
+                        // Update the ConversionProgress property
+                        viewModel.ConversionProgress = progress;
+                    });
                     MessageBox.Show("Conversion completed successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    viewModel.ConversionProgress = 0;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Conversion failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    viewModel.ConversionProgress = 0;
                 }
             }
         }

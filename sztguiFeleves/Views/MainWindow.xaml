@@ -234,18 +234,19 @@
         </StackPanel>
 
 
+        <StackPanel Orientation="Horizontal" Margin="0,52,0,10" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center">
+            <Button Content="Start" Width="100" Margin="10" Height="30" Grid.Row="4" Grid.Column="3"   Click="StartButton_Click"/>
+        </StackPanel>
         <!--Start Button bottom right-->
-        <Button Content="Start" Width="100" Margin="10" Height="30" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="StartButton_Click"/>
 
-        
-        
-        <!--StackPanel at the bottom of the window-->
-        <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
-            
-
-
+        <StackPanel Orientation="Horizontal" Margin="0,52,0,10" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3">
+            <ProgressBar Minimum="0" Maximum="100" Height="20" Width="500"
+                 Value="{Binding ConversionProgress}" />
+            <TextBlock Text="{Binding ConversionProgress, StringFormat='{}{0}%'}"
+               VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16" />
         </StackPanel>
 
+
     </Grid>
-    
+
 </Window>

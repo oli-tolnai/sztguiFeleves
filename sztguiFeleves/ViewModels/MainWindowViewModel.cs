@@ -14,7 +14,19 @@ namespace sztguiFeleves.ViewModels
     public class MainWindowViewModel : INotifyPropertyChanged
     {
 
-        
+        private double _conversionProgress;
+        public double ConversionProgress
+        {
+            get => _conversionProgress;
+            set
+            {
+                if (_conversionProgress != value)
+                {
+                    _conversionProgress = value;
+                    OnPropertyChanged(nameof(ConversionProgress));
+                }
+            }
+        }
 
 
         private Preset _selectedPreset;
