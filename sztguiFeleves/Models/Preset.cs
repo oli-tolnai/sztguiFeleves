@@ -143,6 +143,8 @@ namespace sztguiFeleves.Models
         mkv,
         [Description("webm")]
         webm,
+        [Description("mov")]
+        mov,
         [Description("copy")]
         Passthrough
     }

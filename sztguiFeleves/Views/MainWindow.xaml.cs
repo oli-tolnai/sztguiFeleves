@@ -25,7 +25,7 @@ namespace sztguiFeleves.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly string[] SupportedFileExtensions = { ".mp4", ".webm", ".mkv", ".MP4" };
+        private readonly string[] SupportedFileExtensions = { ".mp4", ".webm", ".mkv", ".mov", ".MP4", ".WEBM", ".MKV", ".MOV" };
 
         private MainWindowViewModel ViewModel => DataContext as MainWindowViewModel;
 
