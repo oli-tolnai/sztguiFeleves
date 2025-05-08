@@ -87,7 +87,7 @@ namespace sztguiFeleves.Views
             // Create and configure the OpenFileDialog
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "Video Files (*.mp4;*.webm;*.mkv)|*.mp4;*.webm;*.mkv|All Files (*.*)|*.*",
+                Filter = "Video Files (*.mp4;*.webm;*.mkv;*.mov)|*.mp4;*.webm;*.mkv;*.mov|All Files (*.*)|*.*",
                 Title = "Select a File to Convert"
             };
 

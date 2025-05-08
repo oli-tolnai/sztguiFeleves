@@ -15,7 +15,8 @@ namespace sztguiFeleves.ViewModels
     {
 
         // Path to FFmpeg executable
-        public string ffmpegPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\..\..\ffmpeg"));
+        //public string ffmpegPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\..\..\ffmpeg"));
+        public string ffmpegPath = "./Resources/ffmpeg"; 
 
         private string _outputFileName;
         public string OutputFileName
