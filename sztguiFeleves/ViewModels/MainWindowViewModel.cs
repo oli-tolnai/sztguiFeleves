@@ -14,6 +14,9 @@ namespace sztguiFeleves.ViewModels
     public class MainWindowViewModel : INotifyPropertyChanged
     {
 
+        // Path to FFmpeg executable
+        public string ffmpegPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\..\..\ffmpeg"));
+
         private string _outputFileName;
         public string OutputFileName
         {
@@ -228,7 +231,7 @@ namespace sztguiFeleves.ViewModels
                 {
                     // TODO: Check if the file exists
                     // Initialize FFmpeg
-                    Xabe.FFmpeg.FFmpeg.SetExecutablesPath("C:\\Users\\olito\\Desktop\\6.(4.)félév\\Sztgui\\ffmpeg");
+                    Xabe.FFmpeg.FFmpeg.SetExecutablesPath(ffmpegPath);
 
 
                     // Get media info

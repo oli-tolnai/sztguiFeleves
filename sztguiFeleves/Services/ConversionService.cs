@@ -12,12 +12,12 @@ namespace sztguiFeleves.Services
 {
     public class ConversionService
     {
-        public async Task ConvertFileAsync(string inputFilePath, string outputFilePath, Preset preset, Action<double>? onProgress = null)
+        public async Task ConvertFileAsync(string inputFilePath, string outputFilePath, Preset preset, string ffmpegpath, Action<double>? onProgress = null)
         {
             try
             {
                 // Set the FFmpeg path
-                FFmpeg.SetExecutablesPath("C:\\Users\\olito\\Desktop\\6.(4.)félév\\Sztgui\\ffmpeg\\");
+                FFmpeg.SetExecutablesPath(ffmpegpath);
 
                 var conversion = FFmpeg.Conversions.New()
                     .AddParameter($"-i \"{inputFilePath}\""); // Input file

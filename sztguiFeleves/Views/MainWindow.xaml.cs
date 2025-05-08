@@ -163,7 +163,7 @@ namespace sztguiFeleves.Views
                 var conversionService = new ConversionService();
                 try
                 {
-                    await conversionService.ConvertFileAsync(filePath, outputFilePath, preset, progress =>
+                    await conversionService.ConvertFileAsync(filePath, outputFilePath, preset, viewModel.ffmpegPath, progress =>
                     {
                         // Update the ConversionProgress property
                         viewModel.ConversionProgress = progress;
